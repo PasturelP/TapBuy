@@ -1,11 +1,13 @@
 Test Tap Buy
 =
 
-###Requirements : 
+Requirements : 
+-
     - Docker : https://docs.docker.com/install/
     - Docker Compose : https://docs.docker.com/compose/install/
     
-###Installation :
+Installation :
+-
     - make build
     - make first_up
     
