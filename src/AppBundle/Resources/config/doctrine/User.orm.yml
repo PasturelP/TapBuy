@@ -1,0 +1,36 @@
+AppBundle\Entity\User:
+    type: entity
+    table: user
+    repositoryClass: AppBundle\Repository\UserRepository
+    id:
+        id:
+            type: integer
+            generator:
+                strategy: AUTO
+    fields:
+        google_id:
+            type: string
+            nullable: true
+
+        google_access_token:
+            type: string
+            nullable: true
+
+        facebook_id:
+            type: string
+            nullable: true
+
+        facebook_access_token:
+            type: string
+            nullable: true
+
+        updated:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+        created:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create

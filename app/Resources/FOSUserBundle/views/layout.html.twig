@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body_id %}security{% endblock %}
+
+{% block pre_content %}
+    <div class="background"></div>
+{% endblock %}
+
+{% block content %}
+    {% if block('alert') | trim is not empty %}
+        <alert class="alert-{% block alert_type %}{% endblock %}">
+            {% block alert %}{% endblock %}
+        </alert>
+    {% endif %}
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+{% endblock content %}

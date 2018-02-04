@@ -1,0 +1,65 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+<div id="fb-root"></div>
+<script>
+    window.fbAsyncInit = function() {
+        // init the FB JS SDK
+        FB.init({
+            appId      : 157131331609878,                        // App ID from the app dashboard
+            status     : true,                                 // Check Facebook Login status
+            xfbml      : true                                  // Look for social plugins on the page
+        });
+    };
+
+    // Load the SDK asynchronously
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    function fb_login() {
+        FB.getLoginStatus(function(response) {
+            if (response.status === 'connected') {
+                // connected
+                alert('Already connected, redirect to login page to create token.');
+                document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+            } else {
+                // not_authorized
+                FB.login(function(response) {
+                    if (response.authResponse) {
+                        document.location = "{{ url("hwi_oauth_service_redirect", {service: "facebook"}) }}";
+                    } else {
+                        alert('Cancelled.');
+                    }
+                }, {scope: 'email'});
+            }
+        });
+    }
+</script>
+
+<div id="content">
+    {% if error is defined and error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path("fos_user_security_check") }}" method="post">
+        {% if csrf_token is defined and csrf_token %}
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+        {% endif %}
+
+        <input type="text" id="username" name="_username" value="{{ last_username is defined ? last_username : '' }}" required="required" placeholder="Utilisateur"/>
+
+        <input type="password" id="password" name="_password" required="required" placeholder="Mot de passe"/>
+
+        <div class="raw">
+            <button type="submit" class="col-md-6 col-xs-12">Connection</button>
+            <a href="{{ path('hwi_oauth_service_redirect', {'service': 'google' }) }}" class="col-md-3 col-xs-12 btn-google"> <i class="fab fa-google"></i></a>
+            <a href="javascript:;" class="col-md-3 col-xs-12 btn-facebook" onclick="fb_login()"> <i class="fab fa-facebook-f"></i></a>
+        </div>
+        <p class="text">Pas encore de compte ? <a href="{{ path('fos_user_registration_register') }}">S'enregistrer</a></p>
+        <p class="text">Vous avez oublié votre mode de passe ? <a href="{{ path('fos_user_resetting_request') }}">Récuperer</a></p>
+    </form>
+</div>

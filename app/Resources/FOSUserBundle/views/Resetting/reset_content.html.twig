@@ -1,0 +1,9 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{{ form_start(form, { 'action': path('fos_user_resetting_reset', {'token': token}), 'attr': { 'class': 'fos_user_resetting_reset' } }) }}
+     {% for form_password in form.plainPassword %}
+         {{ form_widget(form_password, {attr :{placeholder: 'Mode de passe', class: form_errors(form_password) != "" ? 'has-error' : '' }}) }}
+     {% endfor %}
+
+<button type="submit">Modifier</button>
+{{ form_end(form) }}

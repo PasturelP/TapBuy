@@ -1,0 +1,71 @@
+form {
+  padding: 15px 45px 30px 45px;
+  input {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #f2f2f2;
+    width: 100%;
+    border: 0;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    &.has-error {
+      border: 1px solid rgb(204, 0, 0) !important;
+      background: rgba(204, 0, 0, 0.15);
+    }
+  }
+  button, .button {
+    font-family: "Roboto", sans-serif;
+    text-transform: uppercase;
+    outline: 0;
+    background: rgba($main_color, 0.8);
+    border: 0;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 14px;
+    @include transition(all ease);
+    @include transition-duration(0.3s);
+    cursor: pointer;
+    display: inline-block;
+    &:hover, &:active, &:focus {
+      background: $main_color;
+    }
+  }
+
+  .text {
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+    a {
+      color: $main_color;
+      text-decoration: none;
+    }
+  }
+  .btn-google {
+    background: #dc4a33;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    float: right;
+    padding: 15px;
+    font-size: 14px;
+    cursor: pointer;
+    @include transition(all ease);
+    @include transition-duration(0.3s);
+    @media (max-width: 768px) {
+      margin: 5px 0;
+    }
+
+    &:hover, &:active, &:focus {
+      background: rgba(#dc4a33, 0.95);
+    }
+  }
+  .btn-facebook{
+    @extend .btn-google;
+    background: #3b5998;
+    &:hover, &:active, &:focus {
+      background: rgba(#3b5998, 0.95);
+    }
+  }
+}

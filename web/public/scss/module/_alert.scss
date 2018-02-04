@@ -1,0 +1,15 @@
+alert{
+  background: #FFFFFF;
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  margin: 5px auto 10px;
+  padding: 10px 5px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.05), 0 5px 5px 0 rgba(0, 0, 0, 0.09);
+  &.alert-success{
+    background: #8BC34A;
+    color:white;
+  }
+}

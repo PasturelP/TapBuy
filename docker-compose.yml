@@ -1,0 +1,70 @@
+version: '2'
+services:
+    base:
+        build: docker/base
+
+    fpm:
+        build: docker/php
+        container_name: tapbuy_fpm
+        networks:
+         - app
+         - db
+        volumes:
+            - .:/www
+        ports:
+         - 9000:9000
+        environment:
+         - "constraint:storage==big"
+
+    apache:
+        build:        docker/apache
+        container_name: tapbuy_apache
+        volumes_from: [ base ]
+        links:        [ fpm ]
+        environment:
+            DOMAIN_NAME: EAUAP
+            DOMAIN_CONTROLLER:
+            BACKUP_DOMAIN_CONTROLLER:
+        ports:
+            - 80:80
+        volumes:
+            - .:/www
+        networks:
+         - front
+         - app
+    cli:
+        build:        docker/cli
+        container_name: tapbuy_cli
+        volumes_from: [ fpm ]
+        depends_on:
+            - fpm
+        environment:
+         - "TERM=xterm-color"
+        networks:
+         - app
+         - db
+        volumes:
+            - .:/www
+        networks:
+            - app
+            - db
+        ports:
+          - 8181:8181
+        #command: crossbar start
+
+    mysql:
+        build:  docker/mysql
+        container_name: tapbuy_mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: e444tG7P4vpBMk
+        ports:
+            - 3306:3306
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        networks:
+            - db
+
+networks:
+    front:
+    app:
+    db:

@@ -1,0 +1,52 @@
+.logo-header {
+  display: block;
+  position: absolute;
+  top: 10px; left: 10px;
+  z-index: 2;
+}
+
+header {
+  display: block;
+  background: url(../img/background.jpg);
+  background-size: cover;
+  position: relative;
+  height: 75px;
+  width: 100%;
+  background-color: white;
+  .logo-header {
+    position: relative !important;
+    padding: 10px 20px;
+    float: left;
+    @media (max-width: 250px) {
+      display: none;
+    }
+  }
+
+  .header-btn-container {
+    display: inline-block;
+    position: relative;
+    float: right;
+    margin: 0;
+    height: 100%;
+    .header-btn {
+      background-color: rgba(white, 0.1);
+      display: inline-block;
+      width: 75px;
+      float: right;
+      height: 100%;
+      text-align: center;
+      font-size: 22px;
+      padding: 0px 7px;
+      margin: 0 1px;
+      color: rgba(white, 0.8) !important;
+      svg {
+        margin-top: 40%;
+      }
+      @include transition-duration(.3s);
+      &:hover {
+        color: white;
+        background-color: $main_color;
+      }
+    }
+  }
+}
